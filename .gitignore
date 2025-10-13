@@ -2,7 +2,7 @@
 
 .env
 
-# Spotipy token cache file (contains user access token)
+# Spotipy token cache file (contains user access token) 
 .cache-*
 
 __pycache__/
