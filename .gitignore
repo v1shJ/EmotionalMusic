@@ -1,0 +1,13 @@
+# .gitignore
+
+# 1. Environment variables (contains client secret)
+.env
+
+# 2. Spotipy token cache file (contains user access token)
+# The pattern is .cache-{username}
+.cache-*
+
+# Optional: Python specific files
+__pycache__/
+*.pyc
+venv/
