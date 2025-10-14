@@ -119,5 +119,5 @@ def main(image_path):
 
 if __name__ == "__main__":
     test_image_path = '../TestingImages/neutral.jpeg'  
-    result = predict_emotion(test_image_path)
+    result = main(test_image_path)
     print(result)
