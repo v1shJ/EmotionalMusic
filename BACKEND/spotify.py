@@ -3,6 +3,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
+from emotionDetect import predict_emotion
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -101,8 +102,22 @@ def play_playlist(spotify_object, device_id, uri):
         print(f"\n❌ An unexpected error occurred: {e}")
 
 
-# Main Execution 
-device_id = get_active_device(sp)
+def getPlaylistByEmotion(image_path):
+    result = predict_emotion(image_path)
+    emotion = result['emotion'].lower()
+    if emotion in EMOTION_BASED_URI:
+        return EMOTION_BASED_URI[emotion]
+    else:
+        print(f"No playlist found for emotion '{emotion}'. Defaulting to 'happy' playlist.")
+        return EMOTION_BASED_URI["happy"]
 
-if device_id:
-    play_playlist(sp, device_id, PLAYLIST_URI)
+def main(image_path):
+    device_id = get_active_device(sp)
+    if device_id:
+        playlist_uri = getPlaylistByEmotion(image_path)
+        play_playlist(sp, device_id, playlist_uri)
+
+if __name__ == "__main__":
+    test_image_path = '../TestingImages/neutral.jpeg'  
+    result = predict_emotion(test_image_path)
+    print(result)
