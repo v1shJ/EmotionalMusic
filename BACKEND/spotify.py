@@ -16,9 +16,10 @@ if not all([os.getenv('SPOTIPY_CLIENT_ID'), os.getenv('SPOTIPY_CLIENT_SECRET'), 
 # Scopes required to read devices and control playback
 SCOPE = "user-modify-playback-state user-read-playback-state user-read-currently-playing"
 EMOTION_BASED_URI = {
-    "happy": "playlist:37i9dQZF1EVJSvZp5AOML2",
-    "sad": "playlist:37i9dQZF1EIg85EO6f7KwU",
-    "rage": "playlist:37i9dQZF1EIhuCNl2WSFYd"
+    "happy": "spotify:playlist:37i9dQZF1EVJSvZp5AOML2",
+    "sad": "spotify:playlist:37i9dQZF1EIg85EO6f7KwU",
+    "rage": "spotify:playlist:37i9dQZF1EIhuCNl2WSFYd",
+    
 }
 PLAYLIST_URI = EMOTION_BASED_URI["happy"]
 
