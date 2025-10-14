@@ -19,10 +19,13 @@ SCOPE = "user-modify-playback-state user-read-playback-state user-read-currently
 EMOTION_BASED_URI = {
     "happy": "spotify:playlist:37i9dQZF1EVJSvZp5AOML2",
     "sad": "spotify:playlist:37i9dQZF1EIg85EO6f7KwU",
-    "rage": "spotify:playlist:37i9dQZF1EIhuCNl2WSFYd",
-    
+    "angry": "spotify:playlist:37i9dQZF1EIhuCNl2WSFYd",
+    "neutral": "spotify:playlist:37i9dQZF1EpnnJ84UBWHBI",
+    "disgusted": "spotify:playlist:37i9dQZF1EVJSvZp5AOML2",
+    "fearful": "spotify:playlist:37i9dQZF1EIdHmP6runabL",
+    "surprised": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
 }
-PLAYLIST_URI = EMOTION_BASED_URI["happy"]
+# PLAYLIST_URI = EMOTION_BASED_URI["happy"]
 
 # Authentication 
 try:
@@ -34,9 +37,9 @@ try:
     
     # Clear any cached tokens to force re-authentication with new scopes
     cache_file = ".cache"
-    if os.path.exists(cache_file):
-        os.remove(cache_file)
-        print("🗑️ Cleared cached authentication")
+    # if os.path.exists(cache_file):
+    #     os.remove(cache_file)
+    #     print("🗑️ Cleared cached authentication")
     
     print("\n�🚀 Opening browser for authentication...")
     # SpotipyOAuth handles the full Authorization Code flow
@@ -106,6 +109,7 @@ def getPlaylistByEmotion(image_path):
     result = predict_emotion(image_path)
     emotion = result['emotion'].lower()
     if emotion in EMOTION_BASED_URI:
+        print(f"Detected emotion: {emotion}. Selecting corresponding playlist.")
         return EMOTION_BASED_URI[emotion]
     else:
         print(f"No playlist found for emotion '{emotion}'. Defaulting to 'happy' playlist.")
@@ -115,9 +119,8 @@ def main(image_path):
     device_id = get_active_device(sp)
     if device_id:
         playlist_uri = getPlaylistByEmotion(image_path)
-        play_playlist(sp, device_id, playlist_uri)
+        play_playlist(sp, device_id, playlist_uri)    
 
 if __name__ == "__main__":
-    test_image_path = '../TestingImages/neutral.jpeg'  
+    test_image_path = '../TestingImages/angry.jpeg'  
     result = main(test_image_path)
-    print(result)
