@@ -1,15 +1,12 @@
 import cv2
 import numpy as np
 import time
-from tensorflow.keras.models import load_model
-
-model = load_model('ck_fer_model.keras')
 
 TARGET_SIZE = (48, 48)
 EMOTION_LABELS = {0: 'anger', 1: 'contempt', 2: 'disgust', 3: 'fear', 4: 'happy', 5: 'sadness', 6: 'surprise'}
 INFERENCE_INTERVAL = 5
 
-def live_emotion_inference():
+def live_emotion_inference(model):
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Error: Could not open webcam.")

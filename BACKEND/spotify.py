@@ -3,9 +3,14 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
-from emotionDetect import predict_emotion
+from emotionDetect import predict_emotion_from_image
+
+from tensorflow.keras.models import load_model
+
 from dotenv import load_dotenv
 load_dotenv()
+
+model = load_model('ck_fer_model.h5')
 
 # Verify that the credentials are loaded
 if not all([os.getenv('SPOTIPY_CLIENT_ID'), os.getenv('SPOTIPY_CLIENT_SECRET'), os.getenv('SPOTIPY_REDIRECT_URI')]):
@@ -103,7 +108,7 @@ def play_playlist(spotify_object, device_id, uri):
 
 
 def getPlaylistByEmotion(image_path):
-    result = predict_emotion(image_path)
+    result = predict_emotion_from_image(image_path, model)
     emotion = result['emotion'].lower()
     if emotion in EMOTION_BASED_URI:
         return EMOTION_BASED_URI[emotion]

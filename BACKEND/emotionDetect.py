@@ -1,10 +1,7 @@
 import cv2
 import numpy as np
-from tensorflow.keras.models import load_model
 
-model = load_model('ck_fer_model.h5')
-
-def predict_emotion_from_image(image_path):
+def predict_emotion_from_image(image_path, model):
     EMOTION_LABELS = {0: 'anger', 1: 'contempt', 2: 'disgust', 3: 'fear', 4: 'happy', 5: 'sadness', 6: 'surprise'}
     TARGET_SIZE = (48, 48)
     
@@ -29,5 +26,5 @@ def predict_emotion_from_image(image_path):
 
 if __name__ == "__main__":
     test_image_path = '../TestingImages/neutral.jpeg'  
-    result = predict_emotion(test_image_path)
+    result = predict_emotion_from_image(test_image_path)
     print(result)
