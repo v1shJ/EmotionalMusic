@@ -1,0 +1,8 @@
+# Essential packages only
+torch
+torchvision
+opencv-python
+numpy
+Pillow
+spotipy
+python-dotenv
