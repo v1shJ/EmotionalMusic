@@ -23,13 +23,32 @@ class LiveEmotionDetector:
         self.running = False
         self.cap = None
         
+        # FPS monitoring
+        self.frame_count = 0
+        self.fps_start_time = time.time()
+        self.current_fps = 0
+        
     def start_camera(self):
-        """Initialize webcam"""
+        """Initialize webcam with maximum performance settings"""
         self.cap = cv2.VideoCapture(0)
         if not self.cap.isOpened():
             print("Error: Could not open webcam")
             return False
+        
+        # Set camera properties for maximum performance
+        self.cap.set(cv2.CAP_PROP_FPS, 60)           # Try to set max FPS
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)   # Set resolution
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)     # Reduce buffer lag
+        
+        # Get actual camera capabilities
+        actual_fps = self.cap.get(cv2.CAP_PROP_FPS)
+        actual_width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        actual_height = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        
         print("✅ Webcam initialized")
+        print(f"📹 Camera FPS: {actual_fps}")
+        print(f"📐 Resolution: {actual_width}x{actual_height}")
         return True
     
     def detect_current_emotion(self):
@@ -41,6 +60,9 @@ class LiveEmotionDetector:
         if not ret:
             return None
             
+        # Mirror the frame horizontally (like a selfie camera)
+        frame = cv2.flip(frame, 1)
+        
         # Convert BGR to RGB for emotion detector
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
@@ -73,6 +95,9 @@ class LiveEmotionDetector:
         ret, frame = self.cap.read()
         if not ret:
             return None, None
+            
+        # Mirror the frame horizontally (like a selfie camera)
+        frame = cv2.flip(frame, 1)
             
         # Convert BGR to RGB for emotion detector
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -107,7 +132,9 @@ class LiveEmotionDetector:
             cv2.putText(frame, "No face detected", (50, 50), 
                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         
-        # Add system status text
+        # Add system status text with FPS monitoring
+        cv2.putText(frame, f"FPS: {self.current_fps:.1f}", 
+                   (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
         cv2.putText(frame, f"Current Emotion: {self.current_logged_emotion or 'None'}", 
                    (10, frame.shape[0] - 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
         cv2.putText(frame, f"Playlist Emotion: {self.last_playlist_emotion or 'None'}", 
@@ -243,17 +270,26 @@ class LiveEmotionDetector:
         
         try:
             while self.running:
-                # Continuous live video feed
+                # Continuous live video feed with FPS monitoring
                 frame, current_emotion = self.capture_and_display_live()
+                
+                # Update FPS counter
+                self.frame_count += 1
+                current_time = time.time()
+                if current_time - self.fps_start_time >= 1.0:  # Update FPS every second
+                    self.current_fps = self.frame_count / (current_time - self.fps_start_time)
+                    self.frame_count = 0
+                    self.fps_start_time = current_time
                 
                 if frame is not None:
                     cv2.imshow('Live Emotion Detection', frame)
                     
-                    # Check for quit command
+                    # Check for quit command (minimal delay for max FPS)
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
                 
-                time.sleep(0.1)  # Small delay for smooth video
+                # Remove artificial delay for maximum FPS
+                # time.sleep(0.1) - REMOVED for max performance
                 
         except KeyboardInterrupt:
             print("\n🛑 Stopping live detection...")
