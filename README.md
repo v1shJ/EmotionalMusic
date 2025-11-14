@@ -36,6 +36,7 @@ A minimal, streamlined system that combines face detection with emotion recognit
    python run_live.py
    ```
 
+<<<<<<< HEAD
    **For iPhone Camera (Higher Quality):**
    - Install iVCam on your iPhone from the App Store
    - Install iVCam software on your Windows computer
@@ -43,6 +44,8 @@ A minimal, streamlined system that combines face detection with emotion recognit
    - Launch iVCam on both devices to establish connection
    - Run the emotion detection - it will automatically detect and use your iPhone camera
 
+=======
+>>>>>>> c5314bfb0391a16795d9443b6cb0a21fc579956d
 4. **Run static image with Spotify:**
    ```bash
    python spotify.py
@@ -61,7 +64,10 @@ A minimal, streamlined system that combines face detection with emotion recognit
 2. **Detects emotion** only when a song changes or is skipped
 3. **Switches playlists** only if emotion is different from last time
 4. **No action** if emotion remains the same
+<<<<<<< HEAD
 5. **Phone Camera Support** - Use your iPhone camera via iVCam for higher quality emotion detection
+=======
+>>>>>>> c5314bfb0391a16795d9443b6cb0a21fc579956d
 
 ## Simple Usage
 
@@ -88,6 +94,7 @@ detector.run_live_detection()  # Starts webcam + Spotify monitoring
 python run_live.py
 ```
 
+<<<<<<< HEAD
 ## iPhone Camera Integration
 
 For superior emotion detection quality, you can use your iPhone camera instead of your computer's webcam:
@@ -113,3 +120,6 @@ For superior emotion detection quality, you can use your iPhone camera instead o
 - Try different camera indices if detection fails
 
 That's it! Clean and minimal with professional-grade camera support.
+=======
+That's it! Clean and minimal.
+>>>>>>> c5314bfb0391a16795d9443b6cb0a21fc579956d

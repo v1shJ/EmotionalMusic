@@ -36,6 +36,13 @@ A minimal, streamlined system that combines face detection with emotion recognit
    python run_live.py
    ```
 
+   **For iPhone Camera (Higher Quality):**
+   - Install iVCam on your iPhone from the App Store
+   - Install iVCam software on your Windows computer
+   - Connect your iPhone and computer to the same Wi-Fi network
+   - Launch iVCam on both devices to establish connection
+   - Run the emotion detection - it will automatically detect and use your iPhone camera
+
 4. **Run static image with Spotify:**
    ```bash
    python spotify.py
@@ -54,6 +61,7 @@ A minimal, streamlined system that combines face detection with emotion recognit
 2. **Detects emotion** only when a song changes or is skipped
 3. **Switches playlists** only if emotion is different from last time
 4. **No action** if emotion remains the same
+5. **Phone Camera Support** - Use your iPhone camera via iVCam for higher quality emotion detection
 
 ## Simple Usage
 
@@ -80,4 +88,28 @@ detector.run_live_detection()  # Starts webcam + Spotify monitoring
 python run_live.py
 ```
 
-That's it! Clean and minimal.
+## iPhone Camera Integration
+
+For superior emotion detection quality, you can use your iPhone camera instead of your computer's webcam:
+
+### Setup Steps:
+1. **Install iVCam app** on your iPhone (free from App Store)
+2. **Download iVCam software** for Windows from e2esoft.com
+3. **Connect both devices** to the same Wi-Fi network
+4. **Launch iVCam** on both iPhone and Windows
+5. **Verify connection** - iVCam should show "Connected" status
+6. **Run emotion detection** - the system will automatically detect and use your iPhone camera
+
+### Benefits:
+- **Higher resolution** camera for better face detection
+- **Better lighting adaptation** with iPhone's advanced camera sensors  
+- **Improved emotion accuracy** due to superior image quality
+- **Flexible positioning** - place your iPhone at optimal angles
+
+### Troubleshooting:
+- Ensure both devices are on the same network
+- Restart iVCam if connection fails
+- Check that no other apps are using the camera
+- Try different camera indices if detection fails
+
+That's it! Clean and minimal with professional-grade camera support.
