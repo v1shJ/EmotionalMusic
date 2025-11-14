@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 iVCam Connection Test Script
 Helps diagnose and fix iVCam connection issues
