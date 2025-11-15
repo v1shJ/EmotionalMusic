@@ -1,6 +1,6 @@
 # Emotion Detection with Face Recognition
 
-A minimal, streamlined system that combines face detection with emotion recognition using your trained CNN model.
+A minimal yet powerful emotion detection pipeline using OpenCV and a trained CNN model. Supports image files, real-time webcam analysis, and even iPhone camera integration. Includes optional Spotify automation that changes playlists based on detected emotions. Clean architecture, fast setup, and easy to extend.
 
 ## Files
 
